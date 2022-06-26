@@ -1,0 +1,2210 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Vue基本使用, 好好学习Blog">
+    <meta name="description" content="Vue:计算函数：可用于观察数据变化使用就调用
+默认是get
+设置get于set需要这样设置
+data () {
+    return {
+      isALL:false
+    }
+  },
+computed:{
+    checke">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Vue基本使用 | 好好学习Blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
+
+<meta name="generator" content="Hexo 6.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+
+
+<body>
+    <!-- 页面加载 -->
+    
+<!-- 页面加载动画 -->
+
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="configure-border-1">
+          <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+          <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+      </div>
+    </div>
+    <!-- 页面加载动画 -->
+    <script>
+      $(document).ready(function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      })
+    </script>
+  
+ 
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">好好学习Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于我</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">好好学习Blog</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于我
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Vue基本使用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                                <span class="chip bg-color">前端</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Vue/" class="post-category">
+                                Vue
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-03-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-04-19
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3k
+                </div>
+                
+
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue:"></a>Vue:</h1><h2 id="计算函数："><a href="#计算函数：" class="headerlink" title="计算函数："></a>计算函数：</h2><p>可用于观察数据变化使用就调用</p>
+<p>默认是get</p>
+<p>设置get于set需要这样设置</p>
+<pre class="line-numbers language-none"><code class="language-none">data () {
+    return {
+      isALL:false
+    }
+  },
+computed:{
+    checkedAll:{
+          get(){
+            return this.getChecked===this.getlength
+          },
+          set(isAll){  //参数为get返回的值，要有行为才会调用
+             this.List.forEach(element =&gt; {
+               element.completed=isAll
+           });
+          }
+        }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>computed中定义的函数，在computed中定义的函数的调用时机是：当页面引用了vue data关键字的属性，并且这些属性发生改变的时候，如果computed中定义的函数也依赖了这些改变的属性，那么computed中定义的函数才会被执行。也就是computed中定义的函数被Vue框架回调的条件是，1.函数内依赖了vue的属性，2.这些属性发生了改变，3.这些属性被页面引用。这三个条件同时满足，才会触发computed中定义的某个函数的回调。而且和methods定义的函数，其调用语法也是不一样的，computed中定义的函数，调用的时候后面不能有小括号，类似属性的调用。</p>
+<p><strong>示例：</strong></p>
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;script&gt;
+export default {
+    name: "UserFooter",
+  data () {
+    return {
+      isALL:true
+    }
+  },
+  props:{
+    List:Array,
+    delcheck:Function,
+  },
+  components: {},
+  methods: {
+   
+  },
+  computed:{
+    getChecked(){
+       let i=0;
+       this.List.forEach(element =&gt; {
+         if(element.completed==true){
+           i++;
+         }
+        
+       });
+        return i;
+    },
+    getlength(){
+      return this.List.length
+    }，
+      checkedAll:{
+      get(){
+        return this.getChecked===this.getlength
+      },
+      set(isAll){
+         this.List.forEach(element =&gt; {
+           element.completed=isAll
+       });
+      }
+    }
+  }
+  
+}
+&lt;/script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h2 id="组件化："><a href="#组件化：" class="headerlink" title="组件化："></a>组件化：</h2><p>组件（component） 是 Vue.js 最强大的功能之一。 Vue 中的组件化开发就是把网页的重复代码抽取出来 ，封装成一个个可复用的视图组件，然后将这些视图组件拼 接到一块就构成了一个完整的系统。</p>
+<p>这种方式非常灵活，可以极大的提高我们开发和维护的效率。</p>
+<p>提高开发效率，增强可维护性，更好的去解决软件上的高耦合、低内聚、无重用的3大代码问题</p>
+<p>通常一套系统会以一棵嵌套的组件树的形式来组织：</p>
+<p><img src="https://s2.loli.net/2022/04/14/s1TcxnEBkKrC6iv.png" alt="image-20220328234834859"></p>
+<h3 id="组件的基本使用"><a href="#组件的基本使用" class="headerlink" title="组件的基本使用"></a>组件的基本使用</h3><p>为了能在模板中使用，这些组件必须先注册以便 Vue 能够识别。</p>
+<p> 有两种组件的注册类型：全局注册和局部注册</p>
+<h4 id="全局注册"><a href="#全局注册" class="headerlink" title="全局注册"></a>全局注册</h4><p>全局注册之后，可以在任何新创建的 Vue 实例 (new Vue) 的模板中使用</p>
+<pre class="line-numbers language-none"><code class="language-none">Vue.component('组件名',{
+ template: '定义组件模板'，
+ data: function(){ //data 选项在组件中必须是一个函数
+ return {} 
+} 
+//其他选项：methods
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h4 id="局部注册："><a href="#局部注册：" class="headerlink" title="局部注册："></a>局部注册：</h4><pre class="line-numbers language-none"><code class="language-none">new Vue({
+    el:"#app",
+    components:{
+      App  //这里是导入了js包的
+    },template:" &lt;app&gt;&lt;/app&gt;"  //表示这个标签将会代替我们上面的入口，但App里面还有个入口,将会使用那个入口，这个页面的就会清除
+  })<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">;(function(){
+    window.App={
+        template:` &lt;div id="app"&gt;
+        &lt;!--头部导航区域--&gt;
+            &lt;app-navber&gt;&lt;/app-navber&gt;
+
+        
+        &lt;!--核心区域:分左右两边--&gt;
+        &lt;div class="container-fluid"&gt;
+            &lt;div class="row"&gt;
+            
+            &lt;!--左边菜单栏区域--&gt;
+            &lt;app-left&gt;&lt;/app-left&gt;
+                
+            &lt;!--右边主页面区域: 分上下两个区域--&gt;
+            &lt;app-home&gt;
+            &lt;h1 class="page-header" slot="dashboard"&gt;Dashboard111&lt;/h1&gt;
+            &lt;h2 class="sub-header" slot="Section"&gt;Section title111&lt;/h2&gt;
+            &lt;/app-home&gt;
+            &lt;/div&gt;
+         &lt;/div&gt;
+        &lt;/div&gt;`,
+        components:{
+            AppNavber,
+            AppLeft,
+            AppHome
+        }
+    }
+})()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h4 id="使用案例："><a href="#使用案例：" class="headerlink" title="使用案例："></a>使用案例：</h4><p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1uaCpnWoFYabffIoZwE4gGA">https://pan.baidu.com/s/1uaCpnWoFYabffIoZwE4gGA</a><br>提取码：H03Z</p>
+<h3 id="组件之间传递数据："><a href="#组件之间传递数据：" class="headerlink" title="组件之间传递数据："></a>组件之间传递数据：</h3><h4 id="父组件传递给子组件"><a href="#父组件传递给子组件" class="headerlink" title="父组件传递给子组件"></a>父组件传递给子组件</h4><p>使用props  </p>
+<p><strong>props有三种形式：</strong></p>
+<p>数组：</p>
+<pre class="line-numbers language-none"><code class="language-none">props:["hobbies"]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>对象：</p>
+<pre class="line-numbers language-none"><code class="language-none">props:{
+         index:{type:Number,
+         required:true},
+     }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>对象：</p>
+<pre class="line-numbers language-none"><code class="language-none">props:{
+         emp:Object,
+         deleteEmp:Function,
+         
+     }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h5 id="使用示例："><a href="#使用示例：" class="headerlink" title="使用示例："></a><strong>使用示例：</strong></h5><h6 id="父组件："><a href="#父组件：" class="headerlink" title="父组件："></a><strong>父组件：</strong></h6><p>在组件标签中使用 :名称=”传递对象“  即可</p>
+<p>&lt;dashboard :hobbies=”hobbies” @delete_hob=”deleteHob”&gt;</p>
+<pre class="line-numbers language-none"><code class="language-none">;(function(){
+    window.AppHome={
+        template:`        &lt;div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"&gt;
+			
+        &lt;!--右边上半区域  &lt;h1 class="page-header"&gt;Dashboard&lt;/h1&gt;--&gt;
+       &lt;slot name="dashboard"&gt;&lt;/slot&gt;
+        &lt;dashboard :hobbies="hobbies" @delete_hob="deleteHob"&gt;&lt;/dashboard&gt;
+        &lt;!--右边下半区域  &lt;h2 class="sub-header"&gt;Section title&lt;/h2&gt;--&gt;
+       &lt;slot name="Section"&gt;&lt;/slot&gt;
+        &lt;home-list :empList="empList" :deleteEmp="deleteEmp" &gt;&lt;/home-list&gt;
+      
+    &lt;/div&gt;`,
+    components:{
+        Dashboard,
+        HomeList
+    },data() {
+        return {
+            hobbies:["1111","2222","3333","4444"],
+            empList:[{id:1,name:"某某某1",salary:12535,age:15},
+            {id:2,name:"某某某2",salary:12535,age:15},
+            {id:3,name:"某某某3",salary:12535,age:15},
+            {id:4,name:"某某某4",salary:12535,age:15}]
+        }
+    },methods: {
+        deleteEmp(index){
+            //删除  从第几个开始，删除几个
+            this.empList.splice(index,1);
+        },
+        deleteHob(index){z
+            this.hobbies.splice(index,1)
+            //要传递的PubSub.subscribe方法，参数  1，方法名   2,  数据
+            PubSub.publish("pub",1)
+        }
+    },
+    }
+})()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h6 id="子组件："><a href="#子组件：" class="headerlink" title="子组件："></a>子组件：</h6><p>使用 props： 接收产生，接收有上面说的三种方式，接收后就可以使用了</p>
+<pre class="line-numbers language-none"><code class="language-none">;(function(){
+    window.Dashboard={
+        template:`
+        &lt;div class="row placeholders"&gt;
+          &lt;div v-for="(item,index) in hobbies"  class="col-xs-6 col-sm-3 placeholder"&gt;
+            &lt;img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"&gt;
+            &lt;h4 &gt;{{item}}&lt;/h4&gt;
+            &lt;a href="#" @click="del(index)"&gt; 删除&lt;/a&gt;
+            &lt;span class="text-muted"&gt;Something else&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;`,
+        props:["hobbies"]  //获取父组件的参数
+        ,methods: {
+          del(index){
+            this.$emit("delete_hob",index)  
+          }
+        },
+    }
+})()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+<h2 id="Vue-实例生命周期"><a href="#Vue-实例生命周期" class="headerlink" title="Vue 实例生命周期"></a>Vue 实例生命周期</h2><h3 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h3><p><strong>生命周期分为三大阶段：初始化显示、更新显示、销毁Vue实例</strong></p>
+<p><strong>初始化阶段的钩子函数：</strong></p>
+<p> beforeCreate() 实例创建前：数据和模板均未获取到</p>
+<p>created() 实例创建后: 最早可访问到 data 数据，但模板未获取到</p>
+<p>beforeMount() 数据挂载前：模板已获取到，但是数据未挂载到模板上。</p>
+<p>mounted() 数据挂载后： 数据已挂载到模板中</p>
+<p><strong>更新阶段的钩子函数：</strong></p>
+<p>beforeUpdate() 模板更新前：data 改变后，更新数据模板前调用</p>
+<p>updated() 模板更新后：将 data 渲染到数据模板中</p>
+<p><strong>销毁阶段的钩子函数：</strong></p>
+<p>beforeDestroy() 实例销毁前</p>
+<p> destroyed() 实例销毁后</p>
+<h3 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h3><p>修改数据是在控制台修改</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;script&gt;
+        
+     const vm=   new Vue({
+            el:"#app",
+            data:{
+                msg:"生命周期"
+            },
+            beforeCreate() {// 实例创建前
+                //模板和数据均为获取到
+                console.log("beforeCreate",this.$el,this.$data);
+            },
+            created() {// 实例创建后
+                 //数据成功获取到，但模板未获取到 ,ajax一般在created声明周期中
+                 console.log("created",this.$el,this.$data);
+            },
+            beforeMount() {//数据挂载前
+                //模板与数据都都获取到了，但模板没有挂载数据
+                console.log("beforeMount",this.$el,this.$data);
+            },
+            mounted() {//数据挂载后
+                //模板与数据都都获取到了，模板也挂载了数据
+                console.log("mounted",this.$el,this.$data);
+            },
+            beforeUpdate() {//数据更新之前
+                //数据没有进行更新，data 改变后，更新数据模板前调用
+                console.log("beforeUpdate",this.$el.innerHTML,this.$data);
+            },
+            updated() {//数据更新之后
+                //数据进行更新了，将 data 渲染到数据模板中
+                console.log("updated",this.$el.innerHTML,this.$data);
+            },
+            beforeDestroy() {//实例销毁之前
+                console.log("beforeDestroy",this.$el.innerHTML,this.$data);
+            },
+            destroyed() {//实例销毁之后
+                console.log("destroyed");
+            },
+        })
+        //销毁实例
+        vm.$destroy();
+    &lt;/script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h2 id="axios通讯"><a href="#axios通讯" class="headerlink" title="axios通讯"></a>axios通讯</h2><p>一般放在created() 实例创建后中</p>
+<pre class="line-numbers language-none"><code class="language-none">axios.get("db.json").then(response =&gt;{
+                    this.arr=response.data
+                }).catch(error=&gt;{
+                    console.log(error);
+                }).finally(()=&gt;{
+                    console.log("无论有没有异常如何都会走")
+                })<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><h3 id="什么是路由"><a href="#什么是路由" class="headerlink" title="什么是路由"></a>什么是路由</h3><p>Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得非常简单。 通过根据不同的请求路径，切换显示不同组件进行渲染页面。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p><strong>安装路由</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">npm install vue-router@2.8.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>导入vue-router.js</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;script src="./node_modules/vue/dist/vue.js"&gt;&lt;/script&gt;
+&lt;script src="./node_modules/vue-router/dist/vue-router.js"&gt;&lt;/script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="router-link标签"><a href="#router-link标签" class="headerlink" title="router-link标签"></a>router-link标签</h4><p>tag：转换后的标签，默认a标签</p>
+<p>to：跳转路由的模板加载到 router-view</p>
+<p>exact：精准查询    这样就必须要完整的路径才可以访问</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;router-link tag="li" to="/" exact&gt;&lt;a&gt;首页&lt;/a&gt;&lt;/router-link&gt;
+&lt;router-link tag="li" to="/rightHome" exact&gt;&lt;a&gt;新闻&lt;/a&gt;&lt;/router-link&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="router-view标签"><a href="#router-view标签" class="headerlink" title="router-view标签"></a>router-view标签</h4><p>router-link跳转模板会替换掉router-view，（里面可以放替换标签，也就是插入）</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;router-view&gt;
+            &lt;h1 class="page-header" slot="dashboard"&gt;Dashboard111&lt;/h1&gt;
+            &lt;h2 class="sub-header" slot="Section"&gt;Section title111&lt;/h2&gt;
+        &lt;/router-view&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="路由（包含子路由）："><a href="#路由（包含子路由）：" class="headerlink" title="路由（包含子路由）："></a>路由（包含子路由）：</h4><p>linkActiveClass：router-link点击后的会添加的class，当点击别的就会去到并为另一个赋值上</p>
+<p>routes：配置路由</p>
+<p>​    path ：router-link点击的路径</p>
+<p>​    component ： 替换模板</p>
+<p>children ：子路由（在父路由包含的模板内放入<router-view>）</router-view></p>
+<pre class="line-numbers language-none"><code class="language-none">;(function(){
+
+    window.router=new VueRouter({
+      // 点击后添加的class
+      linkActiveClass:'active',
+
+        routes:[
+              {path:"/",component:AppHome},
+              {path:"/rightHome",component:RigthHome
+                ,children:[
+                   {path:"/rightHome/sports",component:Sports},
+                   {path:"/rightHome/Tech",component:Tech},
+                   {path:"",redirect:'/rightHome/sports'} //默认访问模板
+                ]
+              }
+          ]
+      })
+    
+
+    
+})()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="缓存："><a href="#缓存：" class="headerlink" title="缓存："></a>缓存：</h4><ol>
+<li><p>默认情况下，当路由组件被切换后组件实例会销毁，当切换回来时实例会重新创建。</p>
+</li>
+<li><p>如果可以缓存路由组件实例，切换后不用重新加载数据，可以提高用户体验。</p>
+</li>
+</ol>
+<p><keep-alive> 可缓存渲染的路由组件实例</keep-alive></p>
+<p>注意就可以缓存模板了，模板内的如input的数据也可以缓存到</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;keep-alive&gt;
+             &lt;router-view&gt;
+             &lt;h1 class="page-header" slot="dashboard"&gt;Dashboard111&lt;/h1&gt;
+             &lt;h2 class="sub-header" slot="Section"&gt;Section title111&lt;/h2&gt;
+             &lt;/router-view&gt;
+         &lt;/keep-alive&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>切换回页面后返回这个页面数据都还在，模板不会被销毁</p>
+<p><img src="https://s2.loli.net/2022/04/14/35uAvRYtq6SfkZ1.png" alt="image-20220401171841177"></p>
+<h4 id="路由获取动态的数据"><a href="#路由获取动态的数据" class="headerlink" title="路由获取动态的数据"></a>路由获取动态的数据</h4><p><strong>这些都是声明式路由</strong></p>
+<h5 id="组件："><a href="#组件：" class="headerlink" title="组件："></a>组件：</h5><pre class="line-numbers language-none"><code class="language-none">;(function(){
+    const template = ` 
+    &lt;!--体育栏目 --&gt;
+  &lt;div&gt;
+      &lt;ul&gt;
+        
+        &lt;li v-for="(item,index) in sports" :keys="item.id" &gt;
+        	&lt;!-- :to="'/sports/sprotsDetail/'+item.id" 要动态获取数据拼接，需要在属性前加上:并且路由中的值也需要动态获取 --&gt;
+            &lt;router-link  :to="'/sports/sprotsDetail/'+item.id" v-text="item.title"&gt;&lt;/router-link&gt;
+        &lt;/li&gt;
+
+      &lt;/ul&gt;
+
+      &lt;router-view&gt;&lt;/router-view&gt;
+  &lt;/div&gt;  `;
+
+  window.Sports = {
+      template,
+
+      data() {
+          return {
+              sports:[]
+          }
+      },methods: {
+        getdata(){
+            axios.get("sport.json").then(response =&gt;{
+                this.sports=response.data
+            })
+        }
+      },created() {
+          this.getdata();
+          
+      },
+  }
+})()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h5 id="路由："><a href="#路由：" class="headerlink" title="路由："></a>路由：</h5><pre class="line-numbers language-none"><code class="language-none">;(function(){
+
+    window.router=new VueRouter({
+      // 点击后添加的class
+      linkActiveClass:'active',
+
+        routes:[
+              {path:"/",component:AppHome},
+
+              {path:"/rightHome",component:RigthHome
+                ,children:[
+                   {path:"/rightHome/sports",component:Sports,
+                      children:[
+                      ///sports/sprotsDetail/:id    :id可获取到我们之前的动态添加的数据，并添加
+                        {path:"/sports/sprotsDetail/:id",component:SprotsDetail},
+                      ]
+                    },
+
+                   {path:"/rightHome/Tech",component:Tech,children:[
+                     {path:"/Tech/Detail/:id",component:TechDetail}
+                   ]},
+
+                   {path:"",redirect:'/rightHome/sports'}
+                ]
+              }
+          ]
+      })
+    
+
+    
+})()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h5 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h5><p><img src="https://s2.loli.net/2022/04/14/4MW8i3lnuwTFeQv.png" alt="image-20220408170910935"></p>
+<h3 id="编程式路由"><a href="#编程式路由" class="headerlink" title="编程式路由"></a>编程式路由</h3><h4 id="声明式与编程式路由"><a href="#声明式与编程式路由" class="headerlink" title="声明式与编程式路由"></a>声明式与编程式路由</h4><p><img src="https://s2.loli.net/2022/04/14/P3O4iaKYlFm2WSp.png" alt="image-20220408171138601"></p>
+<h4 id="编程式路由导航-API"><a href="#编程式路由导航-API" class="headerlink" title="编程式路由导航 API"></a>编程式路由导航 API</h4><pre class="line-numbers language-none"><code class="language-none">this.$router.push(path) 相当于点击路由链接(后退1步,会返回当前路由界面)
+this.$router.replace(path) 用新路由替换当前路由(后退1步,不可返回到当前路由界面)
+this.$router.back() 后退回上一个记录路由
+this.$router.go(n) 参数 n 指定步数
+this.$router.go(-1) 后退回上一个记录路由
+this.$router.go(1) 向前进下一个记录路由<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h4><h5 id="路由：-1"><a href="#路由：-1" class="headerlink" title="路由："></a>路由：</h5><p>路由还是要像原来那么些，不变</p>
+<pre class="line-numbers language-none"><code class="language-none">;(function(){
+
+    window.router=new VueRouter({
+      // 点击后添加的class
+      linkActiveClass:'active',
+
+        routes:[
+              {path:"/",component:AppHome},
+
+              {path:"/rightHome",component:RigthHome
+                ,children:[
+                   {path:"/rightHome/sports",component:Sports,
+                      children:[
+                        {path:"/sports/sprotsDetail/:id",component:SprotsDetail},2
+                      ]
+                    },
+                   {path:"/rightHome/Tech",component:Tech,children:[
+                     {path:"/Tech/Detail/:id",component:TechDetail}
+                   ]},
+
+                   {path:"",redirect:'/rightHome/sports'}
+                ]
+              }
+          ]
+      })
+    
+
+    
+})()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h5 id="显示代码："><a href="#显示代码：" class="headerlink" title="显示代码："></a>显示代码：</h5><pre class="line-numbers language-none"><code class="language-none">;(function(){
+    const template = `  
+    &lt;!--科技栏目--&gt;
+  &lt;div&gt;
+      &lt;ul &gt;
+          &lt;li v-for="item in array" :keys="item.id"&gt;
+              &lt;span&gt;{{item.title}} &lt;/span&gt;
+              &lt;!--不需要使用router-link，直接使用方法--&gt;
+              &lt;button @click="TechPush(item.id)" class="btn  btn-default btn-xs"&gt;查看(Push)&lt;/button&gt;&amp;nbsp;
+              &lt;button  @click="TechReplace(item.id)" class="btn btn-default btn-xs"&gt;查看(replace)&lt;/button&gt;
+          &lt;/li&gt;
+          &lt;button @click="$router.back()"&gt;返回&lt;/button&gt;
+          &lt;button @click="$router.go(-1)"&gt;后退1&lt;/button&gt;
+          &lt;button @click="$router.go(1)"&gt;前进1&lt;/button&gt;
+          
+      &lt;/ul&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+      
+  &lt;/div&gt;		 `;
+
+  window.Tech = {
+      template,
+      data() {
+          return {
+              array:[]
+          }
+      },methods: {
+        getdata(){
+        	
+            axios.get("tech.json").then(response =&gt;{
+                this.array=response.data
+            })
+        },
+        TechPush(id){
+            this.$router.push(`/Tech/Detail/${id}`)
+        },
+        TechReplace(id){
+            this.$router.replace(`/Tech/Detail/${id}`)
+        }
+      },created() {
+          this.getdata();
+          
+      },
+  }
+})()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h2 id="reduce循环"><a href="#reduce循环" class="headerlink" title="reduce循环"></a>reduce循环</h2><p>List是个数组</p>
+<p>数组有几个，（pru,thi)=&gt;{}方法就会循环几次</p>
+<p>reduce参数：</p>
+<p>1，循环方法</p>
+<p>​        参数：</p>
+<p>​                1，返回结果值</p>
+<p>​                2，当前循环到的值</p>
+<p>2，返回结果（这个结果是可变的，参1的方法的返回值就会替换参数2原先的值）</p>
+<pre class="line-numbers language-none"><code class="language-none">let aaa= this.List.reduce((pru,thi)=&gt;{
+  return pru+1
+},0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+<h2 id="深度监听："><a href="#深度监听：" class="headerlink" title="深度监听："></a>深度监听：</h2><p>深度监听的话，集合中的对象属性有改变也能监听到</p>
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">watch:{          
+       List:{
+          handler:function(items){
+          localStore.save(items)   
+       },
+         deep:true //深度监听，数组里的对象有东西改变也会触发handler
+       }
+   }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Study Hard</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://studyhardya.github.io/2022/03/29/Vue%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">https://studyhardya.github.io/2022/03/29/Vue%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Study Hard</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                                    <span class="chip bg-color">前端</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="qq,qzone,wechat,weibo" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+<!-- 默认的 -->
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<!-- 修改的 -->
+<!-- <div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div> -->
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'DG3oz2msbm23K7Jc3TzqbIz0-gzGzoHsz',
+        appKey: 'lr9NGqTTn4bG8DCFVxxhMhlr',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '没有理由,开团！！！'
+    });
+</script>
+
+
+
+
+<style>
+
+
+/* 卡片式背景 */
+#vcomments .vcards .vcard {
+    padding: 15px 20px 0 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, .12);
+    transition: all .3s
+}
+#vcomments .vcards .vcard:hover {
+    box-shadow: 0 0 8px 3px rgba(0, 0, 0, .12)
+}
+#vcomments .vcards .vcard .vh .vcard {
+    border: none;
+    box-shadow: none;
+}
+
+
+    
+/*鼠标放置头像旋转*/
+img.vimg {
+    /* 旋转时间为 1s */
+    transition: all 1s
+}
+img.vimg:hover {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+}
+
+
+/*===========背景图输入判断=========*/
+#veditor:focus {
+    background-position-y: 200px;
+    transition: all 0.2s ease-in-out 0s;
+}
+
+
+/*==========修改评论框样式===========start====*/
+.v .vwrap {
+    padding: 0 0 20px;
+}
+/*内容框高度*/
+.v .veditor {
+    min-height: 7rem;
+    resize: none;
+}
+/*==========修改评论框样式===========end======*/
+
+
+
+/*头部空白栏高度*/
+.valine-card .card-content {
+    padding: 20px 20px 5px 20px;
+}
+
+/* valine 评论框增加背景图片 */
+#vcomments textarea {
+    /*背景图贴边*/
+    margin-top: -30px;
+    box-sizing: border-box;
+    background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+}
+
+
+
+</style>
+
+<script>
+
+    
+    // 自定义邮箱审核规则
+// document.body.addEventListener('click', function (e) {
+//     if (e.target.classList.contains('vsubmit')) {
+//         const email = document.querySelector('input[type=email]');
+//         const nick = document.querySelector('input[name=nick]');
+//         const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+//         if (!email.value || !nick.value || !reg.test(email.value)) {
+//             const str = `<div class="valert text-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+//             const vmark = document.querySelector('.vmark');
+//             vmark.innerHTML = str;
+//             vmark.style.display = 'block';
+//             setTimeout(function () {
+//                 vmark.style.display = 'none';
+//                 vmark.innerHTML = '';
+//             }, 2500);
+//         }
+//     }
+// })
+
+
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/04/13/Vue%E8%84%9A%E6%89%8B%E6%9E%B6/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Vue脚手架">
+                        
+                        <span class="card-title">Vue脚手架</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-12
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Vue/" class="post-category">
+                                    Vue
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                        <span class="chip bg-color">前端</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/03/25/RabiitMQ/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="RabiitMQ">
+                        
+                        <span class="card-title">RabiitMQ</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="post-category">
+                                    消息队列
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2022</span>
+            
+            <a href="/about" target="_blank">Study Hard</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">77.6k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2019";
+                        var startMonth = "6";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+                <span id="icp"><img src="/medias/icp.png"
+                                    style="vertical-align: text-bottom;"/>
+                <a href="/null" target="_blank">赣ICP备2022000911号</a>
+            </span>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/StudyHardYa" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:3502155084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=3502155084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 3502155084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: "af371656"
+        });
+        daovoice('update');
+    </script>
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <!-- 切换页面提示 -->
+    <script src="/js/FunnyTitle.js"></script>
+
+    <!-- 烟花爆炸效果 -->
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+
+</body>
+
+</html>
