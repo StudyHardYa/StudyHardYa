@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="HashMap源码讲解, 好好学习Blog">
+    <meta name="keywords" content="ElasticSearch学习, 好好学习Blog">
     <meta name="description" content="ElasticSearch简要：ElasticSearch 是基于Lucene开发的，对Lucene做了一些封装与增强
 Lucene是一条信息检索工具包！jar包，不包含搜索引擎！
 安装：安装包下载国内镜像地址：ElasticSearch:">
@@ -19,7 +19,7 @@ Lucene是一条信息检索工具包！jar包，不包含搜索引擎！
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>HashMap源码讲解 | 好好学习Blog</title>
+    <title>ElasticSearch学习 | 好好学习Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -261,7 +261,7 @@ Lucene是一条信息检索工具包！jar包，不包含搜索引擎！
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">HashMap源码讲解</h1>
+                    <h1 class="description center-align post-title">ElasticSearch学习</h1>
                 </div>
             </div>
         </div>
@@ -402,21 +402,21 @@ Lucene是一条信息检索工具包！jar包，不包含搜索引擎！
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-01
+                    2022-09-03
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-09-05
+                    2022-09-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.8k
+                    3k
                 </div>
                 
 
@@ -1079,6 +1079,55 @@ GET work/user/_search
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+
+
+<h6 id="设置高亮："><a href="#设置高亮：" class="headerlink" title="设置高亮："></a>设置高亮：</h6><pre class="line-numbers language-java" data-language="java"><code class="language-java">    <span class="token keyword">public</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> <span class="token function">getHighlightSource</span><span class="token punctuation">(</span><span class="token class-name">String</span> keywords<span class="token punctuation">,</span><span class="token class-name">Integer</span> form<span class="token punctuation">,</span><span class="token class-name">Integer</span> size<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">{</span>
+
+        <span class="token class-name">SearchRequest</span> searchRequest <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"jd_index"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">SearchSourceBuilder</span> sourceBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchSourceBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("name", keywords);</span>
+        <span class="token class-name">MatchQueryBuilder</span> matchQueryBuilder <span class="token operator">=</span> <span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchQuery</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> keywords<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        sourceBuilder<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>matchQueryBuilder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        sourceBuilder<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token punctuation">(</span>form<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        sourceBuilder<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        searchRequest<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span>sourceBuilder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">HighlightBuilder</span> highlightBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HighlightBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//是否多高亮</span>
+        highlightBuilder<span class="token punctuation">.</span><span class="token function">requireFieldMatch</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        highlightBuilder<span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        highlightBuilder<span class="token punctuation">.</span><span class="token function">preTags</span><span class="token punctuation">(</span><span class="token string">"&lt;span style='color:red'&gt;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        highlightBuilder<span class="token punctuation">.</span><span class="token function">postTags</span><span class="token punctuation">(</span><span class="token string">"&lt;/span&gt;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        sourceBuilder<span class="token punctuation">.</span><span class="token function">highlighter</span><span class="token punctuation">(</span>highlightBuilder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">SearchResponse</span> search <span class="token operator">=</span> restHighLevelClient<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>searchRequest<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">SearchHit</span> documentFields <span class="token operator">:</span> search<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">//获取高亮结果</span>
+            <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">HighlightField</span><span class="token punctuation">&gt;</span></span> highlightFields <span class="token operator">=</span> documentFields<span class="token punctuation">.</span><span class="token function">getHighlightFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//获取原结果</span>
+            <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> sourceAsMap <span class="token operator">=</span> documentFields<span class="token punctuation">.</span><span class="token function">getSourceAsMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment">//获取高亮结果字段</span>
+            <span class="token class-name">HighlightField</span> name <span class="token operator">=</span> highlightFields<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//解析高亮的字段，将原来的字段更换为高亮字段</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>name<span class="token operator">!=</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token comment">//获取高亮内容</span>
+                <span class="token class-name">Text</span><span class="token punctuation">[</span><span class="token punctuation">]</span> fragments <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">fragments</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">String</span> new_name<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Text</span> fragment <span class="token operator">:</span> fragments<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    new_name<span class="token operator">+=</span>fragment<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token comment">//将原内容name换位高亮name</span>
+                sourceAsMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span>new_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>sourceAsMap<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> list<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
                 
             </div>
             <hr/>
@@ -1104,7 +1153,7 @@ GET work/user/_search
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://studyhardya.github.io/2022/07/01/ElasticSearch/">https://studyhardya.github.io/2022/07/01/ElasticSearch/</a>
+                    <a href="https://studyhardya.github.io/2022/09/03/ElasticSearch/">https://studyhardya.github.io/2022/09/03/ElasticSearch/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1689,12 +1738,12 @@ img.vimg:hover {
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/07/01/HashMap%E6%BA%90%E7%A0%81%E8%AE%B2%E8%A7%A3/">
+                <a href="/2022/09/07/SpringCloud/">
                     <div class="card-image">
                         
-                        <img src="https://s1.ax1x.com/2022/07/08/j0Tapq.jpg" class="responsive-img" alt="HashMap源码讲解">
+                        <img src="https://s1.ax1x.com/2022/09/07/vHYaxf.jpg" class="responsive-img" alt="SpringCloud">
                         
-                        <span class="card-title">HashMap源码讲解</span>
+                        <span class="card-title">SpringCloud</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1705,14 +1754,14 @@ img.vimg:hover {
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-07
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/" class="post-category">
-                                    Java集合框架
+                            <a href="/categories/SpringClloud/" class="post-category">
+                                    SpringClloud
                                 </a>
                             
                             
@@ -1722,8 +1771,12 @@ img.vimg:hover {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BC%93%E5%AD%98/">
-                        <span class="chip bg-color">缓存</span>
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
                     </a>
                     
                 </div>
@@ -1737,12 +1790,12 @@ img.vimg:hover {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/06/30/Hibernate%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
+                <a href="/2022/08/16/%E5%A4%9A%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9%E4%B8%8B%E8%BD%BD%E4%BB%A3%E7%A0%81/">
                     <div class="card-image">
                         
-                        <img src="https://s1.ax1x.com/2022/07/08/j0o4oj.jpg" class="responsive-img" alt="hibernate快速入门">
+                        <img src="https://s1.ax1x.com/2022/08/15/vwS6FH.jpg" class="responsive-img" alt="多文件压缩下载代码">
                         
-                        <span class="card-title">hibernate快速入门</span>
+                        <span class="card-title">多文件压缩下载代码</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1753,14 +1806,14 @@ img.vimg:hover {
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-15
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Hibernate/" class="post-category">
-                                    Hibernate
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
                                 </a>
                             
                             
@@ -1770,12 +1823,12 @@ img.vimg:hover {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%A1%86%E6%9E%B6/">
-                        <span class="chip bg-color">框架</span>
+                    <a href="/tags/%E8%AE%B0%E5%BD%95/">
+                        <span class="chip bg-color">记录</span>
                     </a>
                     
-                    <a href="/tags/ORM/">
-                        <span class="chip bg-color">ORM</span>
+                    <a href="/tags/%E5%A4%8D%E7%94%A8%E4%BB%A3%E7%A0%81/">
+                        <span class="chip bg-color">复用代码</span>
                     </a>
                     
                 </div>
@@ -1917,11 +1970,11 @@ img.vimg:hover {
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2022</span>
+                <span id="year">2022-2023</span>
             
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">90.1k</span>
+                        class="white-color">97.4k</span>
             
             
             
